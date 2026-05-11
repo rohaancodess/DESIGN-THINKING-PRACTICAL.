@@ -3,8 +3,13 @@ package com.designthinkingpractical.app.ui.splash
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.Image
+
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.painterResource
+import com.designthinkingpractical.app.R
+
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,14 +57,14 @@ fun SplashScreen(
             modifier = Modifier.padding(16.dp).offset(y = (-50).dp)
         ) {
             // Heartbeat/Blood drop placeholder. In reality, a Lottie animation goes here.
-            Box(
+            Image(
+                painter = painterResource(id = R.drawable.app_logo),
+                contentDescription = "App Logo",
                 modifier = Modifier
-                    .size(120.dp)
-                    .background(Color.White.copy(alpha = alphaAnim.value), shape = androidx.compose.foundation.shape.CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                 Text("🩸", fontSize = 64.sp)
-            }
+                    .size(150.dp)
+                    .padding(8.dp)
+            )
+
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = "BloodLink AI",
