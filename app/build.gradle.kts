@@ -2,7 +2,12 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services") version "4.4.0"
+    alias(libs.plugins.ksp)
 }
+
+
+
+
 
 android {
     namespace = "com.designthinkingpractical.app"
@@ -71,7 +76,11 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    annotationProcessor(libs.room.compiler)
+    ksp(libs.room.compiler)
     implementation("androidx.work:work-runtime-ktx:2.9.0")
+
+
+
+
 
 }
