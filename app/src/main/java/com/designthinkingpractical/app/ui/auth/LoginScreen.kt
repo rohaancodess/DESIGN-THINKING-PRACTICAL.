@@ -12,10 +12,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.unit.dp
+
 import androidx.compose.ui.unit.sp
 
 @Composable
+
 fun LoginScreen(
     viewModel: AuthViewModel,
     onNavigateToOtp: (String, Boolean) -> Unit, // email, isLogin
@@ -25,6 +29,12 @@ fun LoginScreen(
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    
+    // New fields
+    var bloodGroup by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
+    var address by remember { mutableStateOf("") }
+    var lastDonationDate by remember { mutableStateOf("") }
 
     val authState by viewModel.authState.collectAsState()
 
@@ -45,7 +55,7 @@ fun LoginScreen(
         contentAlignment = Alignment.Center
     ) {
         Card(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().wrapContentHeight(),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
@@ -53,7 +63,8 @@ fun LoginScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(32.dp),
+                    .padding(32.dp)
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -74,6 +85,48 @@ fun LoginScreen(
                         value = name,
                         onValueChange = { name = it },
                         label = { Text("Full Name") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        singleLine = true
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    
+                    OutlinedTextField(
+                        value = bloodGroup,
+                        onValueChange = { bloodGroup = it },
+                        label = { Text("Blood Group (e.g., A+, O-)") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        singleLine = true
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    OutlinedTextField(
+                        value = phone,
+                        onValueChange = { phone = it },
+                        label = { Text("Phone Number") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                        singleLine = true
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    OutlinedTextField(
+                        value = address,
+                        onValueChange = { address = it },
+                        label = { Text("Home Address") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        singleLine = false,
+                        minLines = 2
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    OutlinedTextField(
+                        value = lastDonationDate,
+                        onValueChange = { lastDonationDate = it },
+                        label = { Text("Last Donation Date (YYYY-MM-DD)") },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
                         singleLine = true
@@ -118,7 +171,17 @@ fun LoginScreen(
                             if (isLoginMode) {
                                 viewModel.login(email, password)
                             } else {
-                                if (name.isNotEmpty()) {
+                                if (name.isNotEmpty() && bloodGroup.isNotEmpty() && phone.isNotEmpty()) {
+                                    // Store data for later
+                                    viewModel.pendingRegistrationData = mapOf(
+                                        "name" to name,
+                                        "email" to email,
+                                        "password" to password,
+                                        "bloodGroup" to bloodGroup,
+                                        "phone" to phone,
+                                        "address" to address,
+                                        "lastDonationDate" to lastDonationDate
+                                    )
                                     // Send OTP before actual registration
                                     viewModel.sendOtp(email)
                                 }
@@ -150,3 +213,4 @@ fun LoginScreen(
         }
     }
 }
+

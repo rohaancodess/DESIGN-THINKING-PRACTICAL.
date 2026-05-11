@@ -7,7 +7,8 @@ import com.designthinkingpractical.app.domain.model.User
 interface AuthRepository {
     suspend fun sendOtp(email: String): Result<MessageResponse>
     suspend fun verifyOtp(email: String, otp: String): Result<MessageResponse>
-    suspend fun register(name: String, email: String, password: String): Result<AuthResponse>
+    suspend fun register(name: String, email: String, password: String, bloodGroup: String, phone: String, address: String, lastDonationDate: String): Result<AuthResponse>
+
     suspend fun login(email: String, password: String): Result<AuthResponse>
     suspend fun getProfile(): Result<User>
     fun saveToken(token: String)

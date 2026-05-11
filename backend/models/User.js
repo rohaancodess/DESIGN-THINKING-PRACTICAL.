@@ -13,7 +13,11 @@ const userSchema = new mongoose.Schema({
   donorLevel: { type: String, default: 'Bronze' },
   xp: { type: Number, default: 0 },
   availability: { type: Boolean, default: true },
+  phone: { type: String, default: '' },
+  address: { type: String, default: '' },
+  lastDonationDate: { type: Date },
   fcmToken: { type: String }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

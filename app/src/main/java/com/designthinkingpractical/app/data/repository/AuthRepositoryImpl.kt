@@ -40,9 +40,19 @@ class AuthRepositoryImpl(
         }
     }
 
-    override suspend fun register(name: String, email: String, password: String): Result<AuthResponse> {
+    override suspend fun register(name: String, email: String, password: String, bloodGroup: String, phone: String, address: String, lastDonationDate: String): Result<AuthResponse> {
+
         return try {
-            val request = mapOf("name" to name, "email" to email, "password" to password)
+            val request = mapOf(
+                "name" to name, 
+                "email" to email, 
+                "password" to password,
+                "bloodGroup" to bloodGroup,
+                "phone" to phone,
+                "address" to address,
+                "lastDonationDate" to lastDonationDate
+            )
+
             val response = api.register(request)
             if (response.isSuccessful && response.body() != null) {
                 saveToken(response.body()!!.token)

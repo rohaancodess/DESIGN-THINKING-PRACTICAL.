@@ -7,5 +7,9 @@ data class User(
     val bloodGroup: String?,
     val city: String?,
     val donationCount: Int?,
-    val verified: Boolean?
+    val verified: Boolean?,
+    val phone: String?,
+    val address: String?,
+    val lastDonationDate: String?
 )
+

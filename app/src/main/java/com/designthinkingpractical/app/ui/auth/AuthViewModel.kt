@@ -21,6 +21,10 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
+    
+    // Temporary storage for registration data
+    var pendingRegistrationData: Map<String, String>? = null
+
 
     fun sendOtp(email: String) {
         viewModelScope.launch {
@@ -64,10 +68,12 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
-    fun register(name: String, email: String, password: String) {
+    fun register(name: String, email: String, password: String, bloodGroup: String, phone: String, address: String, lastDonationDate: String) {
+
         viewModelScope.launch {
             _authState.value = AuthState.Loading
-            repository.register(name, email, password).fold(
+            repository.register(name, email, password, bloodGroup, phone, address, lastDonationDate).fold(
+
                 onSuccess = {
                     _authState.value = AuthState.Success
                 },

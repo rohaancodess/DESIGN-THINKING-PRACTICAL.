@@ -39,10 +39,28 @@ fun OtpVerificationScreen(
 
     LaunchedEffect(authState) {
         if (authState is AuthState.OtpVerified) {
+            val data = viewModel.pendingRegistrationData
+            if (data != null) {
+                viewModel.register(
+                    name = data["name"]!!,
+                    email = data["email"]!!,
+                    password = data["password"]!!,
+                    bloodGroup = data["bloodGroup"]!!,
+                    phone = data["phone"]!!,
+                    address = data["address"]!!,
+                    lastDonationDate = data["lastDonationDate"]!!
+                )
+                viewModel.pendingRegistrationData = null
+            } else {
+                onVerified()
+                viewModel.resetState()
+            }
+        } else if (authState is AuthState.Success) {
             onVerified()
             viewModel.resetState()
         }
     }
+
 
     Box(
         modifier = Modifier
