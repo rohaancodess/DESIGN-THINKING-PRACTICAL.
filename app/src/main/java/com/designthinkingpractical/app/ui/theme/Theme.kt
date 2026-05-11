@@ -42,7 +42,8 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun DesignThinkingPracticalAppTheme(
+fun BloodLinkTheme(
+
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = false, // Disable dynamic color for consistent branding
     content: @Composable () -> Unit

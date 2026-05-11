@@ -25,7 +25,8 @@ import com.designthinkingpractical.app.ui.auth.LoginScreen
 import com.designthinkingpractical.app.ui.auth.OtpVerificationScreen
 import com.designthinkingpractical.app.ui.emergency.EmergencyViewModel
 import com.designthinkingpractical.app.ui.home.HomeScreen
-import com.designthinkingpractical.app.ui.theme.DesignThinkingPracticalAppTheme
+import com.designthinkingpractical.app.ui.theme.BloodLinkTheme
+
 import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
@@ -52,7 +53,8 @@ class MainActivity : ComponentActivity() {
         WorkManager.getInstance(this).enqueue(syncRequest)
 
         setContent {
-            DesignThinkingPracticalAppTheme {
+            BloodLinkTheme {
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
