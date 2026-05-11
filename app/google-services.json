@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "886210648060",
+    "project_id": "dgu-sports",
+    "storage_bucket": "dgu-sports.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886210648060:android:676877f46e31be47e90479",
+        "android_client_info": {
+          "package_name": "com.designthinkingpractical.app"
+        }
+
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsLUydavLAawceWFeI9GQRNpokWvH0R_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886210648060:android:f5e2a1a7e60018b7e90479",
+        "android_client_info": {
+          "package_name": "com.example.universitysports"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsLUydavLAawceWFeI9GQRNpokWvH0R_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

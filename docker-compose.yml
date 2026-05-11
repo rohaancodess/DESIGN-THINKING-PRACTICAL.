@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  bloodlink-backend:
+    build: ./backend
+    container_name: bloodlink_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://bloodlink-db:27017/bloodlink_db
+      - JWT_SECRET=\${JWT_SECRET}
+      - SMTP_EMAIL=\${SMTP_EMAIL}
+      - SMTP_APP_PASSWORD=\${SMTP_APP_PASSWORD}
+    depends_on:
+      - bloodlink-db
+    networks:
+      - bloodlink_net
+
+  bloodlink-db:
+    image: mongo:6.0
+    container_name: bloodlink_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - bloodlink_db_data:/data/db
+    networks:
+      - bloodlink_net
+
+  nginx:
+    image: nginx:alpine
+    container_name: bloodlink_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - bloodlink-backend
+    networks:
+      - bloodlink_net
+
+networks:
+  bloodlink_net:
+    driver: bridge
+
+volumes:
+  bloodlink_db_data:

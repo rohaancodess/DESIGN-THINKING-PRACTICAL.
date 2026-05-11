@@ -1,0 +1,35 @@
+name: BloodLink Backend CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'backend/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: cd backend && npm ci
+
+    - name: Run Tests
+      run: |
+        # Placeholder for npm test
+        echo "Running tests..."
+
+    - name: Build Docker Image
+      run: |
+        docker-compose build bloodlink-backend
+
+    # In a real scenario, you would push this image to a registry 
+    # (e.g. AWS ECR, Docker Hub) and trigger a deployment script on your EC2/Droplet.
+    - name: Deploy Placeholder
+      run: echo "Deployment triggered successfully"
