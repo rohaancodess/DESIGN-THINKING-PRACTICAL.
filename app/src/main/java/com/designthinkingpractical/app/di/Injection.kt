@@ -22,7 +22,7 @@ object Injection {
     private fun getRetrofit(): Retrofit {
         if (retrofit == null) {
             val logging = HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
+                level = HttpLoggingInterceptor.Level.BASIC
             }
             val client = OkHttpClient.Builder()
                 .addInterceptor(logging)
@@ -43,7 +43,7 @@ object Injection {
                 context.applicationContext,
                 BloodLinkDatabase::class.java,
                 "bloodlink.db"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
         }
         return database!!
     }

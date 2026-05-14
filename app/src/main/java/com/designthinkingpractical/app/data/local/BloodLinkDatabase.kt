@@ -35,6 +35,9 @@ interface EmergencyDao {
     
     @Query("SELECT * FROM emergencies WHERE isSynced = 0")
     suspend fun getUnsyncedEmergencies(): List<EmergencyEntity>
+
+    @Query("DELETE FROM emergencies WHERE id = :id")
+    suspend fun deleteEmergencyById(id: String)
 }
 
 @Dao

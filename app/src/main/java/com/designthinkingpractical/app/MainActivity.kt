@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.material3.Scaffold
 
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.designthinkingpractical.app.data.worker.SyncWorker
@@ -50,7 +51,12 @@ class MainActivity : ComponentActivity() {
         // Schedule periodic sync
         val syncRequest = PeriodicWorkRequestBuilder<SyncWorker>(15, TimeUnit.MINUTES)
             .build()
-        WorkManager.getInstance(this).enqueue(syncRequest)
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "sync_data",
+            androidx.work.ExistingPeriodicWorkPolicy.KEEP,
+            syncRequest
+        )
+        android.util.Log.d("MainActivity", "HomeScreen setup complete")
 
         setContent {
             BloodLinkTheme {

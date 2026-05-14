@@ -88,9 +88,8 @@ class EmergencyRepositoryImpl(
                     "contactNumber" to entity.contactNumber
                 )
                 val remoteRequest = api.createRequest(requestBody)
-                // Delete local unsynced and replace with remote
-                // (In a real app, you might want to update the ID)
-                // For simplicity, we just mark as synced
+                // Remove local unsynced and replace with remote
+                dao.deleteEmergencyById(entity.id)
                 dao.insertEmergencies(listOf(remoteRequest.toEntity(isSynced = true)))
             }
             Result.success(Unit)
